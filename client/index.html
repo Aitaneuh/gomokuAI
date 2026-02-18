@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GomokuAI</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <div id="wrapper">
+        <div id="board" class="board"></div>
+        <div id="dashBoard">
+            <h1>GomokuAI</h1>
+
+            <div id="ai-tab">
+                <div id="analysis" class="analysis-panel">
+                    <h2>AI Analysis</h2>
+                    <div id="calc-res">
+                        <div><span class="stat-label">Time</span><span id="resTimeVal" class="stat-value">-</span></div>
+                        <div><span class="stat-label">Nodes</span><span id="resCountVal" class="stat-value">-</span>
+                        </div>
+                    </div>
+                    <div id="calc-info">
+                        <div><span class="stat-label">Depth</span><span id="depthVal" class="stat-value">-</span></div>
+                        <div><span class="stat-label">NPS</span><span id="speedVal" class="stat-value">-</span></div>
+                    </div>
+                    <table id="analysisTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Move</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="button-controls" class="button-bar">
+                <button class="button" id="reset">Reset</button>
+                <button class="button" id="restart">Restart</button>
+            </div>
+            <div id="button-controls" class="button-bar">
+                <button class="button" id="loadPosbtn">Load Position</button>
+                <button class="button" id="copyPos">Copy Position</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
