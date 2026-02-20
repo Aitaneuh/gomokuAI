@@ -14,38 +14,63 @@
         <div id="board" class="board"></div>
         <div id="dashBoard">
             <h1>GomokuAI</h1>
+            <div id="versus-tab">
+                <div class="player-config">
+                    <div class="player-box">
+                        <span class="player-label">Black Player</span>
+                        <select class="player-select" id="black-player-type">
+                            <option value="human">Human</option>
+                            <option value="ai-Python">AI - Python</option>
+                        </select>
+                    </div>
 
-            <div id="ai-tab">
+                    <div class="vs-divider">vs</div>
+
+                    <div class="player-box">
+                        <span class="player-label">White Player</span>
+                        <select class="player-select" id="white-player-type">
+                            <option value="human">Human</option>
+                            <option value="ai-Python">AI - Python</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="ai-tab-black" class="ai-tab">
                 <div id="analysis" class="analysis-panel">
-                    <h2>AI Analysis</h2>
+                    <h2>AI Analysis <p style="color: #e5c591;">Black</p>
+                    </h2>
                     <div id="calc-res">
-                        <div><span class="stat-label">Time</span><span id="resTimeVal" class="stat-value">-</span></div>
-                        <div><span class="stat-label">Nodes</span><span id="resCountVal" class="stat-value">-</span>
+                        <div><span class="stat-label">Time</span><span id="resTimeValB" class="stat-value">-</span>
+                        </div>
+                        <div><span class="stat-label">Nodes</span><span id="resCountValB" class="stat-value">-</span>
                         </div>
                     </div>
                     <div id="calc-info">
-                        <div><span class="stat-label">Depth</span><span id="depthVal" class="stat-value">-</span></div>
-                        <div><span class="stat-label">NPS</span><span id="speedVal" class="stat-value">-</span></div>
+                        <div><span class="stat-label">Depth</span><span id="depthValB" class="stat-value">-</span></div>
+                        <div><span class="stat-label">NPS</span><span id="speedValB" class="stat-value">-</span></div>
                     </div>
-                    <table id="analysisTable">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Move</th>
-                                <th>Score</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
                 </div>
             </div>
-            <div id="button-controls" class="button-bar">
-                <button class="button" id="reset">Reset</button>
-                <button class="button" id="restart">Restart</button>
+            <div id="ai-tab-white" class="ai-tab">
+                <div id="analysis" class="analysis-panel">
+                    <h2>AI Analysis <p style="color: #e5c591;">White</p>
+                    </h2>
+                    <div id="calc-res">
+                        <div><span class="stat-label">Time</span><span id="resTimeValW" class="stat-value">-</span>
+                        </div>
+                        <div><span class="stat-label">Nodes</span><span id="resCountValW" class="stat-value">-</span>
+                        </div>
+                    </div>
+                    <div id="calc-info">
+                        <div><span class="stat-label">Depth</span><span id="depthValW" class="stat-value">-</span></div>
+                        <div><span class="stat-label">NPS</span><span id="speedValW" class="stat-value">-</span></div>
+                    </div>
+                </div>
             </div>
+            
             <div id="button-controls" class="button-bar">
-                <button class="button" id="loadPosbtn">Load Position</button>
-                <button class="button" id="copyPos">Copy Position</button>
+                <button class="button" id="restart">Restart</button>
+                <button class="button" id="startPause">Start</button>
             </div>
         </div>
     </div>

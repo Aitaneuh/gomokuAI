@@ -1,10 +1,8 @@
 import Renderer from "./renderer.js";
 import PositionHelper from "./position_helper.js";
 
-const boardDiv = document.getElementById("board")
-
 // Creating elements
-const renderer = new Renderer(boardDiv)
+const renderer = new Renderer()
 const positionHelper = new PositionHelper()
 
 window.addEventListener("load", (event) => {

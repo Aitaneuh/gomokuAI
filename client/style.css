@@ -73,11 +73,19 @@ h1 {
     border-bottom: 1px solid #333;
 }
 
-#ai-tab {
-    flex-grow: 1;
-    display: flex;
+.ai-tab {
     width: 100%;
     flex-direction: column;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+#ai-tab-white {
+    display: flex;
+}
+
+#ai-tab-black {
+    display: flex;
 }
 
 .analysis-panel {
@@ -130,47 +138,6 @@ h1 {
 #speedVal {
     font-size: 0.95rem;
     font-weight: bold;
-}
-
-#analysisTable {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.85rem;
-}
-
-#analysisTable th {
-    padding: 12px 8px;
-    text-align: center;
-    background-color: #211F1C;
-    color: #666;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-}
-
-#analysisTable td {
-    padding: 12px 8px;
-    text-align: center;
-    border-bottom: 1px solid #333;
-}
-
-/* Best Move Highlight */
-#analysisTable tbody tr:nth-child(1) {
-    background-color: rgba(129, 182, 76, 0.1) !important;
-    color: #fff !important;
-    font-weight: bold;
-    border-left: 4px solid #81b64c;
-}
-
-#analysisTable tbody tr:not(:first-child):hover {
-    background-color: #2f2d2a;
-}
-
-.score-positive {
-    color: #4ade80;
-}
-
-.score-negative {
-    color: #f87171;
 }
 
 .square {
@@ -250,4 +217,104 @@ h1 {
 .white {
     background-color: #fff;
     border: 1px solid #ccc;
+}
+
+#versus-tab {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #262421;
+    border-bottom: 1px solid #333;
+}
+
+.player-config {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.player-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.player-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #666;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+.vs-divider {
+    color: #4c4a47;
+    font-weight: bold;
+    font-style: italic;
+    font-size: 0.9rem;
+    padding-top: 15px;
+}
+
+.player-select {
+    background-color: #3c3a37;
+    color: #EDD6B0;
+    border: 1px solid #4c4a47;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono';
+    font-size: 0.85rem;
+    cursor: pointer;
+    outline: none;
+    transition: 0.2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23EDD6B0' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    padding-right: 30px;
+}
+
+.player-select:hover {
+    background-color: #4c4a47;
+    border-color: #e5c591;
+}
+
+.player-select:focus {
+    border-color: #81b64c;
+}
+
+.toast-notification {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #211F1C;
+    color: #e5c591;
+    padding: 12px 24px;
+    border-radius: 5px;
+    border-left: 4px solid #e5c591;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.9rem;
+    z-index: 3000;
+    animation: slideUp 0.3s ease-out;
+    pointer-events: none;
+}
+
+.toast-notification.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+@keyframes slideUp {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
 }

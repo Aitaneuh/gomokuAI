@@ -2,8 +2,8 @@ import PositionHelper from "./position_helper.js";
 const positionHelper = new PositionHelper()
 
 export default class Renderer {
-    constructor(boardDiv) {
-        this.boardDiv = boardDiv;
+    constructor() {
+        this.boardDiv = document.getElementById("board");
     }
 
     drawBoard(position) {

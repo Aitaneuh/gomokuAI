@@ -1,3 +1,6 @@
+import ToastHelper from "./toast_helper.js";
+const toasthelper = new ToastHelper()
+
 export default class PositionHelper {
     getUrlPosition() {
         let params = new URLSearchParams(document.location.search);
@@ -6,6 +9,7 @@ export default class PositionHelper {
             return position
         }
         else {
+            toasthelper.showToast("Position is invalid and was set to default.", true)
             this.setPosition("8-8-8-8-8-8-8-8")
             return "8-8-8-8-8-8-8-8"
         }
