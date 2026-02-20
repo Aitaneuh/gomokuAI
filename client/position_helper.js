@@ -9,7 +9,7 @@ export default class PositionHelper {
             return position
         }
         else {
-            toasthelper.showToast("Position is invalid and was set to default.", true)
+            toasthelper.showToast("Position is invalid and was set to default.", true, 5000)
             this.setPosition("8-8-8-8-8-8-8-8")
             return "8-8-8-8-8-8-8-8"
         }
