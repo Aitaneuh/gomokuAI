@@ -11,7 +11,7 @@ const aiAnalysisTabHelper = new AIAnalysisTabHelper()
 export default class GameEngine {
     constructor() {
         this.startBtn = document.getElementById("startPause"),
-        this.restartBtn = document.getElementById("restart");
+            this.restartBtn = document.getElementById("restart");
         this.gameStarted = false;
     }
 
@@ -26,8 +26,14 @@ export default class GameEngine {
     }
 
     _startBtnClick() {
-        if (this.startBtn.innerText == "Start") { this.startBtn.innerText = "Pause" }
-        else { this.startBtn.innerText = "Start" }
+        if (this.startBtn.innerText == "Start") {
+            this.startBtn.innerText = "Pause"
+            renderer.handleBoardVisibility("paused")
+        }
+        else {
+            this.startBtn.innerText = "Start"
+            renderer.handleBoardVisibility("started")
+        }
         this.gameStarted = !this.gameStarted
     }
 

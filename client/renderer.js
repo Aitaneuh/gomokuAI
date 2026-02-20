@@ -64,4 +64,12 @@ export default class Renderer {
             aiAnalysisTabHelper.setTabVisibility("white", false)
         }
     }
+
+    handleBoardVisibility(state) {
+        if (state == "paused") {
+            this.boardDiv.classList.remove("paused")
+        } else {
+            this.boardDiv.classList.add("paused")
+        }
+    }
 }

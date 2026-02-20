@@ -40,6 +40,14 @@ h1 {
     grid-template-columns: repeat(8, 110px);
     grid-template-rows: repeat(8, 110px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    transition: all 0.4s ease;
+}
+
+.board.paused {
+    opacity: 0.6;
+    filter: grayscale(0.5);
+    pointer-events: none;
+    cursor: not-allowed;
 }
 
 .button {
