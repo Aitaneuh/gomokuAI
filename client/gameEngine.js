@@ -28,11 +28,11 @@ export default class GameEngine {
     _startBtnClick() {
         if (this.startBtn.innerText == "Start") {
             this.startBtn.innerText = "Pause"
-            renderer.handleBoardVisibility("paused")
+            renderer.handleBoardVisibility("started")
         }
         else {
+            renderer.handleBoardVisibility("paused")
             this.startBtn.innerText = "Start"
-            renderer.handleBoardVisibility("started")
         }
         this.gameStarted = !this.gameStarted
     }
@@ -40,6 +40,7 @@ export default class GameEngine {
     _restartBtnClick() {
         this.gameStarted = false
         this.startBtn.innerText = "Start"
+        renderer.handleBoardVisibility("paused")
         positionHelper.setPosition("8-8-8-8-8-8-8-8")
         toasthelper.showToast("Game was restarted.")
         aiAnalysisTabHelper.resetTabStats()

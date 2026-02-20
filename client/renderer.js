@@ -67,9 +67,9 @@ export default class Renderer {
 
     handleBoardVisibility(state) {
         if (state == "paused") {
-            this.boardDiv.classList.remove("paused")
-        } else {
             this.boardDiv.classList.add("paused")
+        } else {
+            this.boardDiv.classList.remove("paused")
         }
     }
 }
