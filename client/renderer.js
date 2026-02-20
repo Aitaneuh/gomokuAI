@@ -1,4 +1,9 @@
 import PositionHelper from "./position_helper.js";
+import PlayerSelectHelper from "./player_select_helper.js";
+import AIAnalysisTabHelper from "./ai_analysis_tab_helper.js";
+
+const playerSelectHelper = new PlayerSelectHelper()
+const aiAnalysisTabHelper = new AIAnalysisTabHelper()
 const positionHelper = new PositionHelper()
 
 export default class Renderer {
@@ -45,5 +50,18 @@ export default class Renderer {
         const file = "abcdefgh"[col];
         const rank = 8 - row;
         return file + rank;
+    }
+
+    handleAnalysisTabs() {
+        if (playerSelectHelper.blackPlayerSelect.value != "human") {
+            aiAnalysisTabHelper.setTabVisibility("black", true)
+        } else {
+            aiAnalysisTabHelper.setTabVisibility("black", false)
+        }
+        if (playerSelectHelper.whitePlayerSelect.value != "human") {
+            aiAnalysisTabHelper.setTabVisibility("white", true)
+        } else {
+            aiAnalysisTabHelper.setTabVisibility("white", false)
+        }
     }
 }
