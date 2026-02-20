@@ -1,10 +1,12 @@
 import PositionHelper from "./position_helper.js";
 import PlayerSelectHelper from "./player_select_helper.js";
 import AIAnalysisTabHelper from "./ai_analysis_tab_helper.js";
+import SquareController from "./square_controller.js";
 
 const playerSelectHelper = new PlayerSelectHelper()
 const aiAnalysisTabHelper = new AIAnalysisTabHelper()
 const positionHelper = new PositionHelper()
+const squareController = new SquareController()
 
 export default class Renderer {
     constructor() {
@@ -41,7 +43,7 @@ export default class Renderer {
         }
 
 
-        // sq.onclick = () => onSquareClick(coord);
+        sq.onclick = () => squareController.onSquareClick(coord);
 
         document.getElementById("board").appendChild(sq);
     }
