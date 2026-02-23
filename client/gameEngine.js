@@ -3,11 +3,6 @@ import PositionHelper from "./position_helper.js";
 import AIAnalysisTabHelper from "./ai_analysis_tab_helper.js"
 import Renderer from "./renderer.js"
 
-const renderer = new Renderer()
-const toasthelper = new ToastHelper()
-const positionHelper = new PositionHelper()
-const aiAnalysisTabHelper = new AIAnalysisTabHelper()
-
 export default class GameEngine {
     constructor() {
         this.startBtn = document.getElementById("startPause"),
@@ -26,6 +21,7 @@ export default class GameEngine {
     }
 
     _startBtnClick() {
+        const renderer = new Renderer()
         if (this.startBtn.innerText == "Start") {
             this.startBtn.innerText = "Pause"
             renderer.handleBoardVisibility("started")
@@ -38,6 +34,11 @@ export default class GameEngine {
     }
 
     _restartBtnClick() {
+        const toasthelper = new ToastHelper()
+        const renderer = new Renderer()
+        const positionHelper = new PositionHelper()
+        const aiAnalysisTabHelper = new AIAnalysisTabHelper()
+
         this.gameStarted = false
         this.startBtn.innerText = "Start"
         renderer.handleBoardVisibility("paused")
@@ -46,5 +47,21 @@ export default class GameEngine {
         aiAnalysisTabHelper.resetTabStats()
         let position = positionHelper.getUrlPosition()
         renderer.drawBoard(position)
+    }
+
+    getCurrentPlayer() {
+        const positionHelper = new PositionHelper();
+        const position = positionHelper.getUrlPosition();
+
+        const emptyCells = position.replace(/[^0-9]/g, "");
+
+        let totalEmpty = 0;
+        for (let char of emptyCells) {
+            totalEmpty += parseInt(char, 10);
+        }
+
+        const stoneCount = 64 - totalEmpty;
+
+        return (stoneCount % 2 === 0) ? 'b' : 'w';
     }
 }

@@ -1,8 +1,8 @@
 import ToastHelper from "./toast_helper.js";
-const toasthelper = new ToastHelper()
 
 export default class PositionHelper {
     getUrlPosition() {
+        const toasthelper = new ToastHelper()
         let params = new URLSearchParams(document.location.search);
         let position = params.get("pos");
         if (this._isPositionValid(position)) {
@@ -27,13 +27,59 @@ export default class PositionHelper {
             if (!isNaN(char)) {
                 // empty squares
                 for (let i = 0; i < parseInt(char); i++) {
-                    rowArray += "e";
+                    rowArray.push("e");
                 }
             } else {
-                rowArray += char;
+                rowArray.push(char);
             }
         }
         return rowArray;
+    }
+
+    squareArrayToRow(squareArray) {
+        let newRowStr = "";
+        let emptyCount = 0;
+        for (let cell of squareArray) {
+            if (cell === "e") {
+                emptyCount++;
+            } else {
+                if (emptyCount > 0) { newRowStr += emptyCount; emptyCount = 0; }
+                newRowStr += cell;
+            }
+        }
+        if (emptyCount > 0) newRowStr += emptyCount;
+        return newRowStr;
+    }
+
+    getSquareProperty(sq) {
+
+        if (!sq) return null;
+
+        if (sq.firstElementChild) {
+            const stone = sq.firstElementChild;
+
+            if (stone.classList.contains("white")) {
+                return "white";
+            } else if (stone.classList.contains("black")) {
+                return "black";
+            }
+        }
+
+        return "empty";
+    }
+
+    addSquareToPosition(coord, newStoneColor) {
+        let position = this.getUrlPosition();
+        let rowNumber = 8 - parseInt(coord[1]);
+        let positionRows = position.split("-");
+        let row = positionRows[rowNumber];
+
+        let squareArray = this.rowToSquareArray(row);
+        let colIndex = "abcdefgh".indexOf(coord[0]);
+        squareArray[colIndex] = newStoneColor;
+        positionRows[rowNumber] = this.squareArrayToRow(squareArray)
+        position = positionRows.join("-")
+        return position;
     }
 
     _isPositionValid(position) {

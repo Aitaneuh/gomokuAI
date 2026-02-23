@@ -3,10 +3,6 @@ import PlayerSelectHelper from "./player_select_helper.js";
 import AIAnalysisTabHelper from "./ai_analysis_tab_helper.js";
 import SquareController from "./square_controller.js";
 
-const playerSelectHelper = new PlayerSelectHelper()
-const aiAnalysisTabHelper = new AIAnalysisTabHelper()
-const positionHelper = new PositionHelper()
-const squareController = new SquareController()
 
 export default class Renderer {
     constructor() {
@@ -14,6 +10,8 @@ export default class Renderer {
     }
 
     drawBoard(position) {
+        const positionHelper = new PositionHelper()
+
         this.boardDiv.innerHTML = "";
 
         const rows = position.split("-");
@@ -30,6 +28,8 @@ export default class Renderer {
     }
 
     createSquare(r, c, color) {
+        const squareController = new SquareController()
+        
         const sq = document.createElement("div");
         sq.className = "square " + ((r + c) % 2 === 0 ? "light" : "dark");
 
@@ -55,6 +55,9 @@ export default class Renderer {
     }
 
     handleAnalysisTabs() {
+        const playerSelectHelper = new PlayerSelectHelper()
+        const aiAnalysisTabHelper = new AIAnalysisTabHelper()
+
         if (playerSelectHelper.blackPlayerSelect.value != "human") {
             aiAnalysisTabHelper.setTabVisibility("black", true)
         } else {
