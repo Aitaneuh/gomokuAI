@@ -154,6 +154,14 @@ h1 {
     align-items: center;
     font-size: 32px;
     position: relative;
+    transition: all 0.4s ease;
+}
+
+.square.paused {
+    opacity: 0.6;
+    filter: grayscale(0.5);
+    pointer-events: none;
+    cursor: not-allowed;
 }
 
 .light {

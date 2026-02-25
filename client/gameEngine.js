@@ -46,7 +46,9 @@ export default class GameEngine {
         toasthelper.showToast("Game was restarted.")
         aiAnalysisTabHelper.resetTabStats()
         let position = positionHelper.getUrlPosition()
+        renderer.removeWinnerDisplay()
         renderer.drawBoard(position)
+        this.startBtn.style.display = "block"
     }
 
     getCurrentPlayer() {
@@ -66,7 +68,15 @@ export default class GameEngine {
     }
 
     handleNewPosition(newPosition) {
+        const renderer = new Renderer()
         const positionHelper = new PositionHelper()
-        console.log(positionHelper.checkWinner(newPosition))
+        let winObject = positionHelper.checkWinner(newPosition)
+        if (!winObject) { return }
+
+        const toasthelper = new ToastHelper()
+        toasthelper.showToast(`${(winObject.color == 'b' ? 'Black' : 'White')} player won the match!`)
+        renderer.displayWinner(winObject.squares)
+
+        this.startBtn.style.display = "none"
     }
 }

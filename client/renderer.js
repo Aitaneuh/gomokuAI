@@ -29,7 +29,7 @@ export default class Renderer {
 
     createSquare(r, c, color) {
         const squareController = new SquareController()
-        
+
         const sq = document.createElement("div");
         sq.className = "square " + ((r + c) % 2 === 0 ? "light" : "dark");
 
@@ -77,4 +77,28 @@ export default class Renderer {
             this.boardDiv.classList.remove("paused")
         }
     }
+
+    displayWinner(winningSquares) {
+        const squares = document.querySelectorAll(".square");
+
+        for (let sq of squares) {
+            const coord = sq.dataset.coord;
+
+            if (!winningSquares.includes(coord)) {
+                sq.classList.add("paused");
+            }
+        }
+    }
+
+    removeWinnerDisplay() {
+        const squares = document.querySelectorAll(".square");
+
+        for (let sq of squares) {
+
+            if (sq.classList.contains("paused")) {
+                sq.classList.remove("paused");
+            }
+        }
+    }
+
 }
