@@ -101,6 +101,7 @@ export default class GameEngine {
             if (this.startBtn.style.display == "none" || this.startBtn.innerText == "Start") { return }
             this.playMove(move);
         } else {
+            if (this.startBtn.style.display == "none" || this.startBtn.innerText == "Start") { return }
             this.enableBoard();
         }
     }
