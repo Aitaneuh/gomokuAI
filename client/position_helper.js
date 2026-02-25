@@ -152,11 +152,10 @@ export default class PositionHelper {
             }
         }
 
-        // horizontal (from top left to top right)
-        for (let col = 0; col <= 3; col++) {
-            for (let row = 0; row <= 3; row++) {
+        // horizontal (from top left to bottom right)
+        for (let row = 0; row <= 7; row++) {
+            for (let col = 0; col <= 3; col++) {
                 let p = arr[row][col];
-
                 if (p !== "e" &&
                     p === arr[row][col + 1] &&
                     p === arr[row][col + 2] &&
@@ -164,22 +163,23 @@ export default class PositionHelper {
                     p === arr[row][col + 4]) {
 
                     return {
-                        color: p, squares: [
+                        color: p,
+                        squares: [
                             renderer.squareToCoord(row, col),
                             renderer.squareToCoord(row, col + 1),
                             renderer.squareToCoord(row, col + 2),
                             renderer.squareToCoord(row, col + 3),
-                            renderer.squareToCoord(row, col + 4)]
+                            renderer.squareToCoord(row, col + 4)
+                        ]
                     };
                 }
             }
         }
 
         // vertical (from top left to bottom right)
-        for (let col = 0; col < 8; col++) {
+        for (let col = 0; col <= 7; col++) {
             for (let row = 0; row <= 3; row++) {
                 let p = arr[row][col];
-
                 if (p !== "e" &&
                     p === arr[row + 1][col] &&
                     p === arr[row + 2][col] &&
@@ -187,11 +187,14 @@ export default class PositionHelper {
                     p === arr[row + 4][col]) {
 
                     return {
-                        color: p, squares: [renderer.squareToCoord(row, col),
-                        renderer.squareToCoord(row + 1, col),
-                        renderer.squareToCoord(row + 2, col),
-                        renderer.squareToCoord(row + 3, col),
-                        renderer.squareToCoord(row + 4, col)]
+                        color: p,
+                        squares: [
+                            renderer.squareToCoord(row, col),
+                            renderer.squareToCoord(row + 1, col),
+                            renderer.squareToCoord(row + 2, col),
+                            renderer.squareToCoord(row + 3, col),
+                            renderer.squareToCoord(row + 4, col)
+                        ]
                     };
                 }
             }
