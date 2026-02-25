@@ -1,6 +1,6 @@
 import Renderer from "./renderer.js";
 import PositionHelper from "./position_helper.js";
-import GameEngine from "./gameEngine.js";
+import GameEngine from "./game_engine.js";
 import PlayerSelectHelper from "./player_select_helper.js";
 
 window.addEventListener("load", (event) => {

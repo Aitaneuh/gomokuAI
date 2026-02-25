@@ -1,5 +1,5 @@
 import PositionHelper from "./position_helper.js";
-import GameEngine from "./gameEngine.js";
+import GameEngine from "./game_engine.js";
 
 export default class SquareController {
     onSquareClick(coord) {
@@ -19,5 +19,6 @@ export default class SquareController {
         let newPositon = position_helper.addSquareToPosition(coord, currentPlayer)
         position_helper.setPosition(newPositon)
         gameEngine.handleNewPosition(newPositon)
+        gameEngine.checkTurn()
     }
 }

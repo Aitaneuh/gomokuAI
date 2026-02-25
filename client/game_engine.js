@@ -2,6 +2,9 @@ import ToastHelper from "./toast_helper.js";
 import PositionHelper from "./position_helper.js";
 import AIAnalysisTabHelper from "./ai_analysis_tab_helper.js"
 import Renderer from "./renderer.js"
+import PlayerSelectHelper from "./player_select_helper.js";
+import AIController from "./ai_controller.js";
+import SquareController from "./square_controller.js";
 
 export default class GameEngine {
     constructor() {
@@ -25,12 +28,12 @@ export default class GameEngine {
         if (this.startBtn.innerText == "Start") {
             this.startBtn.innerText = "Pause"
             renderer.handleBoardVisibility("started")
+            this.checkTurn()
         }
         else {
             renderer.handleBoardVisibility("paused")
             this.startBtn.innerText = "Start"
         }
-        this.gameStarted = !this.gameStarted
     }
 
     _restartBtnClick() {
@@ -39,8 +42,6 @@ export default class GameEngine {
         const positionHelper = new PositionHelper()
         const aiAnalysisTabHelper = new AIAnalysisTabHelper()
 
-        this.gameStarted = false
-        this.startBtn.innerText = "Start"
         renderer.handleBoardVisibility("paused")
         positionHelper.setPosition("8-8-8-8-8-8-8-8")
         toasthelper.showToast("Game was restarted.")
@@ -49,6 +50,7 @@ export default class GameEngine {
         renderer.removeWinnerDisplay()
         renderer.drawBoard(position)
         this.startBtn.style.display = "block"
+        this.startBtn.innerText = "Start"
     }
 
     getCurrentPlayer() {
@@ -78,5 +80,43 @@ export default class GameEngine {
         renderer.displayWinner(winObject.squares)
 
         this.startBtn.style.display = "none"
+    }
+
+    async checkTurn() {
+        if (this.startBtn.style.display == "none" || this.startBtn.innerText == "Start") { return }
+        const playerSelectHelper = new PlayerSelectHelper()
+        const aiController = new AIController()
+
+        const color = this.getCurrentPlayer();
+        let players = playerSelectHelper.getPlayers()
+        let playerTypes = {
+            'b': players[0], 
+            'w': players[1]
+        };
+        const type = playerTypes[color];
+
+        if (type != 'human') {
+            this.disableBoard();
+            const move = await aiController.getMove(color, type);
+            if (this.startBtn.style.display == "none" || this.startBtn.innerText == "Start") { return }
+            this.playMove(move);
+        } else {
+            this.enableBoard();
+        }
+    }
+
+    disableBoard() {
+        const renderer = new Renderer()
+        renderer.boardDiv.style.pointerEvents = "none"
+    }
+
+    enableBoard() {
+        const renderer = new Renderer()
+        renderer.boardDiv.style.pointerEvents = "all"
+    }
+
+    playMove(coord) {
+        const squareController = new SquareController()
+        squareController.onSquareClick(coord)
     }
 }

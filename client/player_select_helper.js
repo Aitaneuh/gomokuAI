@@ -15,4 +15,8 @@ export default class PlayerSelectHelper {
             renderer.handleAnalysisTabs()
         });
     }
+
+    getPlayers() {
+        return [this.blackPlayerSelect.value, this.whitePlayerSelect.value];
+    }
 }
