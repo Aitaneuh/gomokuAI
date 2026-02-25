@@ -90,7 +90,7 @@ export default class GameEngine {
         const color = this.getCurrentPlayer();
         let players = playerSelectHelper.getPlayers()
         let playerTypes = {
-            'b': players[0], 
+            'b': players[0],
             'w': players[1]
         };
         const type = playerTypes[color];
@@ -107,12 +107,12 @@ export default class GameEngine {
 
     disableBoard() {
         const renderer = new Renderer()
-        renderer.boardDiv.style.pointerEvents = "none"
+        renderer.boardDiv.classList.add("paused")
     }
 
     enableBoard() {
         const renderer = new Renderer()
-        renderer.boardDiv.style.pointerEvents = "all"
+        renderer.boardDiv.classList.remove("paused")
     }
 
     playMove(coord) {
