@@ -88,6 +88,8 @@ export default class Renderer {
 
             if (!winningSquares.includes(coord)) {
                 sq.classList.add("paused");
+            } else {
+                sq.classList.add("red");
             }
         }
     }
