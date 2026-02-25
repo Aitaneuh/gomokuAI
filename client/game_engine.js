@@ -107,12 +107,12 @@ export default class GameEngine {
 
     disableBoard() {
         const renderer = new Renderer()
-        renderer.boardDiv.classList.add("paused")
+        renderer.boardDiv.classList.add("disabled")
     }
 
     enableBoard() {
         const renderer = new Renderer()
-        renderer.boardDiv.classList.remove("paused")
+        renderer.boardDiv.classList.remove("disabled")
     }
 
     playMove(coord) {
