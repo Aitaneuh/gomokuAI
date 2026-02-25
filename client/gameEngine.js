@@ -64,4 +64,9 @@ export default class GameEngine {
 
         return (stoneCount % 2 === 0) ? 'b' : 'w';
     }
+
+    handleNewPosition(newPosition) {
+        const positionHelper = new PositionHelper()
+        console.log(positionHelper.checkWinner(newPosition))
+    }
 }

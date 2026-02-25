@@ -18,5 +18,6 @@ export default class SquareController {
 
         let newPositon = position_helper.addSquareToPosition(coord, currentPlayer)
         position_helper.setPosition(newPositon)
+        gameEngine.handleNewPosition(newPositon)
     }
 }
