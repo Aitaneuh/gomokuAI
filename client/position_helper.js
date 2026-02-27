@@ -205,4 +205,28 @@ export default class PositionHelper {
         }
 
     }
+
+    positionToBitboards(position) {
+        let positionRows = position.split("-");
+        let positionRowsArray = [[], [], [], [], [], [], [], []];
+        for (let rowIndex = 0; rowIndex < positionRows.length; rowIndex++) {
+            positionRowsArray[rowIndex] = this.rowToSquareArray(positionRows[rowIndex])
+        }
+        let flatPosition = positionRowsArray.flat()
+        let blackBitboard = 0n;
+        let whiteBitboard = 0n;
+
+        for (let i = 0; i < flatPosition.length; i++) {
+            if (flatPosition[i] == 'b') {
+                let newStone = 1n << BigInt(i)
+                blackBitboard |= newStone
+            } else if (flatPosition[i] == 'w') {
+                let newStone = 1n << BigInt(i)
+                whiteBitboard |= newStone
+            }
+        }
+
+        return [blackBitboard, whiteBitboard]
+
+    }
 }
