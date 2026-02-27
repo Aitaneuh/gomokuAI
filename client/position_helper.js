@@ -107,6 +107,10 @@ export default class PositionHelper {
             positionRowsArray[rowIndex] = this.rowToSquareArray(positionRows[rowIndex])
         }
 
+        if (!positionRowsArray.flat().includes("e")){
+            return "draw"
+        }
+            
         let arr = positionRowsArray // better with a short name
 
         // diagonnaly (from top left to bottom right)

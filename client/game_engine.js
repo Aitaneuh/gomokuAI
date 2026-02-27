@@ -76,6 +76,13 @@ export default class GameEngine {
         if (!winObject) { return }
 
         const toasthelper = new ToastHelper()
+        if (winObject == "draw") {
+            toasthelper.showToast(`Draw!`)
+            renderer.displayWinner(['a0'])
+            this.startBtn.style.display = "none"
+            return
+        }
+
         toasthelper.showToast(`${(winObject.color == 'b' ? 'Black' : 'White')} player won the match!`)
         renderer.displayWinner(winObject.squares)
 
