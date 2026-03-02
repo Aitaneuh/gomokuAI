@@ -1,3 +1,5 @@
+import AIAnalysisTabHelper from "./ai_analysis_tab_helper.js";
+import GameEngine from "./game_engine.js";
 import PositionHelper from "./position_helper.js";
 import Renderer from "./renderer.js";
 
@@ -5,7 +7,12 @@ export default class AIController {
     async getMove(color, type) {
         const positionHelper = new PositionHelper()
         const renderer = new Renderer()
+        const aiAnalysisTabHelper = new AIAnalysisTabHelper()
+        const gameEngine = new GameEngine()
         const position = positionHelper.getUrlPosition();
+
+        // const timout = timoutHelper.getTimeout()
+        const timout = 200
 
         let move = ""
         switch (type) {
@@ -28,6 +35,7 @@ export default class AIController {
                 const randomIndex = Math.floor(Math.random() * emptySquares.length);
 
                 move = emptySquares[randomIndex];
+                aiAnalysisTabHelper.resetTabStats()
                 break;
 
             case "python":
@@ -42,9 +50,11 @@ export default class AIController {
 
                 const data = await response.json();
                 move = data.move;
+                aiAnalysisTabHelper.setTabStats(gameEngine.getCurrentPlayer(),data.time, data.nodes, data.depth, data.nps)
+                break;
         }
 
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, timout));
         return move
     }
 }
