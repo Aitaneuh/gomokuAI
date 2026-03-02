@@ -210,7 +210,8 @@ export default class PositionHelper {
         let positionRows = position.split("-");
         let positionRowsArray = [[], [], [], [], [], [], [], []];
         for (let rowIndex = 0; rowIndex < positionRows.length; rowIndex++) {
-            positionRowsArray[rowIndex] = this.rowToSquareArray(positionRows[rowIndex])
+            // 7 - rowIndex to have 2**0 of the bitboard on a1 and not a8
+            positionRowsArray[rowIndex] = this.rowToSquareArray(positionRows[7 - rowIndex])
         }
         let flatPosition = positionRowsArray.flat()
         let blackBitboard = 0n;
