@@ -7,12 +7,39 @@ class Bratchoku:
         self.simulated_moves = 0
         self.board_helper = boardHelper()
 
-    def play(self, black_bitboard: int, white_bitboard: int):
+    def play(self, black_bitboard: int, white_bitboard: int, depth: int):
         self.simulated_moves = 0
         start = time.time()
-
+        
         black_to_play = black_bitboard.bit_count() == white_bitboard.bit_count()
-        return "e4", time.time() - start, self.simulated_moves
+        
+        moves = self.board_helper.get_sorted_moves(black_bitboard, white_bitboard, black_to_play)
+        
+        best_move = -1
+        if black_to_play:
+            best_val = -float('inf')
+            for m in moves:
+                black_bitboard |= (1 << m)
+                val = self.minimax(black_bitboard, white_bitboard, depth, False, -float('inf'), float('inf'))
+                black_bitboard &= ~(1 << m)
+                
+                if val > best_val:
+                    best_val = val
+                    best_move = m
+        else:
+            best_val = float('inf')
+            for m in moves:
+                white_bitboard |= (1 << m)
+                val = self.minimax(black_bitboard, white_bitboard, depth, True, -float('inf'), float('inf'))
+                white_bitboard &= ~(1 << m)
+                
+                if val < best_val:
+                    best_val = val
+                    best_move = m
+
+        move_str = self.board_helper.index_to_notation(best_move)
+        
+        return move_str, time.time() - start, self.simulated_moves
     
     def minimax(self, black_bb, white_bb, depth, black_to_play, alpha, beta):
 
@@ -36,6 +63,7 @@ class Bratchoku:
                 
                 black_bb |= move_mask
                 eval_score = self.minimax(black_bb, white_bb, depth - 1, False, alpha, beta)
+                self.simulated_moves += 1
                 black_bb &= ~move_mask
                 
                 max_eval = max(max_eval, eval_score) # type: ignore
@@ -51,6 +79,7 @@ class Bratchoku:
                 
                 white_bb |= move_mask
                 eval_score = self.minimax(black_bb, white_bb, depth - 1, True, alpha, beta)
+                self.simulated_moves += 1
                 white_bb &= ~move_mask
                 
                 min_eval = min(min_eval, eval_score)

@@ -24,6 +24,7 @@ export default class AIAnalysisTabHelper {
 
     setTabStats(color, time, nodes, depth, nps) {
         time = time.toFixed(2)
+        nps = nps.toFixed(2)
         if (color == "b") {
             this.blackTime.textContent = time
             this.blackNodes.textContent = nodes

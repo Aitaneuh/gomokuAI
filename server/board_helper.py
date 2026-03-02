@@ -92,7 +92,7 @@ class boardHelper:
             # PRIORITÉ 2 : Est-ce que ce coup bloque une victoire adverse ?
             elif self.is_winning_position(opp_bb | mask):
                 score += 50000
-                
+
             # PRIORITÉ 3 : Bonus de proximité (jouer près du centre est statistiquement meilleur)
             # On donne un petit bonus selon la distance au centre (cases 27, 28, 35, 36)
             dist_center = abs(3.5 - (move_index % 8)) + abs(3.5 - (move_index // 8))
@@ -107,4 +107,57 @@ class boardHelper:
         return [m[1] for m in scored_moves]
     
     def evaluate_board(self, black_bb, white_bb):
-        pass
+        score = 0
+        
+        score += self.count_patterns(black_bb, white_bb)
+        score -= self.count_patterns(white_bb, black_bb)
+        
+        return score
+
+    def count_patterns(self, my_bb, opp_bb):
+        MASK_NO_A = 0xFEFEFEFEFEFEFEFE
+        MASK_NO_H = 0x7F7F7F7F7F7F7F7F
+
+        total = 0
+        occupied = my_bb | opp_bb
+        empty = ~occupied & 0xFFFFFFFFFFFFFFFF
+
+        for shift in [1, 8, 9, 7]:
+            mask = 0xFFFFFFFFFFFFFFFF
+            if shift == 1: mask = MASK_NO_A
+            elif shift == 7: mask = MASK_NO_H
+            elif shift == 9: mask = MASK_NO_A
+
+            # 1. Chercher les "4 libres" ( . X X X X . )
+            m4 = my_bb & (my_bb << shift) & mask
+            m4 &= (m4 << (2 * shift)) & (mask & (mask << shift))
+            
+            # Vérifier si c'est entouré de vide
+            open_four = (m4 << shift) & empty & ((m4 >> (4 * shift)) & empty)
+            if open_four: total += 10000
+
+            # 2. Chercher les "3 libres" ( . X X X . )
+            m3 = my_bb & (my_bb << shift) & mask
+            m3 &= (m3 << shift) & mask
+            
+            # Vérifier si c'est entouré de vide
+            open_three = (m3 << shift) & empty & ((m3 >> (3 * shift)) & empty)
+            if open_three: total += 1000
+
+        # Bonus de proximité au centre (très léger pour départager les positions vides)
+        # On peut pré-calculer un masque de centre
+        total += bin(my_bb & 0x00003C3C3C3C0000).count('1') * 10
+        
+        return total
+    
+    def index_to_notation(self, index: int) -> str:
+        if index < 0 or index > 63:
+            return "none"
+            
+        col_index = index % 8  # 0 -> a, 1 -> b, etc.
+        row_index = (index // 8) + 1  # 0 -> 1, 1 -> 2, etc.
+        
+        # Conversion du col_index en lettre (a=97 en ASCII)
+        column_letter = chr(97 + col_index)
+        
+        return f"{column_letter}{row_index}"
