@@ -18,8 +18,12 @@ def play():
     depth = 4
 
     result = bratchoku.play(blackBitboard, whiteBitboard, depth)
+    time = result[1]
+    if time == 0.00: 
+        time = 0.01
+    
 
-    return jsonify({"move": result[0], "depth": depth, "time": result[1], "nodes": result[2], "nps": result[2]/result[1]}), 200
+    return jsonify({"move": result[0], "depth": depth, "time": result[1], "nodes": result[2], "nps": result[2]/time}), 200
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=8000, debug=True)
