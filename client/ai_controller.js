@@ -15,43 +15,50 @@ export default class AIController {
         const timout = 200
 
         let move = ""
-        switch (type) {
-            case "random":
-                const rows = position.split("-");
-                let emptySquares = [];
+        const [blackBitboard, whiteBitboard] = positionHelper.positionToBitboards(position);
+        
+        if (type === "random") {
+            const rows = position.split("-");
+            let emptySquares = [];
 
-                rows.forEach((rowStr, rowIndex) => {
-                    const rowArray = positionHelper.rowToSquareArray(rowStr);
-                    rowArray.forEach((cell, colIndex) => {
-                        if (cell === "e") {
-                            const coord = renderer.squareToCoord(rowIndex, colIndex);
-                            emptySquares.push(coord);
-                        }
-                    });
+            rows.forEach((rowStr, rowIndex) => {
+                const rowArray = positionHelper.rowToSquareArray(rowStr);
+                rowArray.forEach((cell, colIndex) => {
+                    if (cell === "e") {
+                        const coord = renderer.squareToCoord(rowIndex, colIndex);
+                        emptySquares.push(coord);
+                    }
                 });
+            });
 
-                if (emptySquares.length === 0) return null;
+            if (emptySquares.length === 0) return null;
+            const randomIndex = Math.floor(Math.random() * emptySquares.length);
+            move = emptySquares[randomIndex];
+            aiAnalysisTabHelper.resetTabStats();
 
-                const randomIndex = Math.floor(Math.random() * emptySquares.length);
+        } else if (type === "python" || type === "csharp") {
+            const url = type === "python"
+                ? 'http://127.0.0.1:8000/api/python/play'
+                : 'http://127.0.0.1:3000/api/cs/play';
 
-                move = emptySquares[randomIndex];
-                aiAnalysisTabHelper.resetTabStats()
-                break;
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    blackBitboard: blackBitboard.toString(16),
+                    whiteBitboard: whiteBitboard.toString(16)
+                })
+            });
 
-            case "python":
-                const blackBitboard = positionHelper.positionToBitboards(position)[0]
-                const whiteBitboard = positionHelper.positionToBitboards(position)[1]
-
-                const response = await fetch('http://127.0.0.1:8000/api/python/play', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ blackBitboard: blackBitboard.toString(16), whiteBitboard: whiteBitboard.toString(16) })
-                });
-
-                const data = await response.json();
-                move = data.move;
-                aiAnalysisTabHelper.setTabStats(gameEngine.getCurrentPlayer(),data.time, data.nodes, data.depth, data.nps)
-                break;
+            const data = await response.json();
+            move = data.move;
+            aiAnalysisTabHelper.setTabStats(
+                gameEngine.getCurrentPlayer(),
+                data.time,
+                data.nodes,
+                data.depth,
+                data.nps
+            );
         }
 
         await new Promise(resolve => setTimeout(resolve, timout));

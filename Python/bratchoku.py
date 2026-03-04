@@ -50,7 +50,7 @@ class Bratchoku:
             if self.board_helper.is_winning_position(white_bb):
                 return -1000000 - depth
             
-        combined = self.board_helper.get_combined(black_bb, white_bb)
+        combined = black_bb | white_bb
         if depth == 0 or combined == 0xFFFFFFFFFFFFFFFF: # board plein
             return self.board_helper.evaluate_board(black_bb, white_bb)
         

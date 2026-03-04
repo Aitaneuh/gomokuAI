@@ -1,17 +1,4 @@
 class boardHelper:
-    def get_combined(self, black_bb, white_bb):
-        return black_bb | white_bb
-
-    def play_move(self, BB, index):
-        move_mask = 1 << index
-        BB |= move_mask
-        return BB
-    
-    def remove_move(self, BB, index):
-        move_mask = 1 << index
-        BB &= move_mask
-        return BB
-    
     def bitboard_to_indices(self, bb):
         indices = []
         while bb:

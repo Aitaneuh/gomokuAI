@@ -1,0 +1,6 @@
+@GomokuAI_HostAddress = http://127.0.0.1:3000
+
+GET {{GomokuAI_HostAddress}}/api/cs/play
+Accept: application/json
+
+###
