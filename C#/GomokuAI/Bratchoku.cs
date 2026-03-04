@@ -34,8 +34,8 @@ namespace GomokuAI
                 foreach (int m in moves)
                 {
                     blackBitboard |= (1UL << m);
-                    SimulatedMoves++;
                     double val = Minimax(blackBitboard, whiteBitboard, depth - 1, false, alpha, beta);
+                    SimulatedMoves++;
                     blackBitboard &= ~(1UL << m);
 
                     if (val > bestVal)
@@ -52,8 +52,8 @@ namespace GomokuAI
                 foreach (int m in moves)
                 {
                     whiteBitboard |= (1UL << m);
-                    SimulatedMoves++;
                     double val = Minimax(blackBitboard, whiteBitboard, depth - 1, true, alpha, beta);
+                    SimulatedMoves++;
                     whiteBitboard &= ~(1UL << m);
 
                     if (val < bestVal)
@@ -97,8 +97,8 @@ namespace GomokuAI
                 {
                     ulong moveMask = 1UL << moveIndex;
                     blackBB |= moveMask;
-                    SimulatedMoves++;
                     double evalScore = Minimax(blackBB, whiteBB, depth - 1, false, alpha, beta);
+                    SimulatedMoves++;
                     blackBB &= ~moveMask;
 
                     maxEval = Math.Max(maxEval, evalScore);
@@ -114,8 +114,8 @@ namespace GomokuAI
                 {
                     ulong moveMask = 1UL << moveIndex;
                     whiteBB |= moveMask;
-                    SimulatedMoves++;
                     double evalScore = Minimax(blackBB, whiteBB, depth - 1, true, alpha, beta);
+                    SimulatedMoves++;
                     whiteBB &= ~moveMask;
 
                     minEval = Math.Min(minEval, evalScore);

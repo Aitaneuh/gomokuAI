@@ -16,26 +16,32 @@ class Bratchoku:
         moves = self.board_helper.get_sorted_moves(black_bitboard, white_bitboard, black_to_play)
         
         best_move = -1
+        alpha = -float('inf')
+        beta = float('inf')
         if black_to_play:
             best_val = -float('inf')
             for m in moves:
                 black_bitboard |= (1 << m)
-                val = self.minimax(black_bitboard, white_bitboard, depth, False, -float('inf'), float('inf'))
+                val = self.minimax(black_bitboard, white_bitboard, depth - 1, False, alpha, beta)
+                self.simulated_moves += 1
                 black_bitboard &= ~(1 << m)
                 
                 if val > best_val:
                     best_val = val
                     best_move = m
+                alpha = max(alpha, best_val)
         else:
             best_val = float('inf')
             for m in moves:
                 white_bitboard |= (1 << m)
-                val = self.minimax(black_bitboard, white_bitboard, depth, True, -float('inf'), float('inf'))
+                val = self.minimax(black_bitboard, white_bitboard, depth - 1, True, alpha, beta)
+                self.simulated_moves += 1
                 white_bitboard &= ~(1 << m)
                 
                 if val < best_val:
                     best_val = val
                     best_move = m
+                beta = min(beta, best_val)
 
         move_str = self.board_helper.index_to_notation(best_move)
         
