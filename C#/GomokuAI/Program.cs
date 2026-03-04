@@ -1,6 +1,4 @@
 using GomokuAI;
-using System.Collections;
-using System.ComponentModel;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,23 +41,23 @@ app.MapPost("/api/cs/play", (PlayRequest data) =>
     var bratchoku = new Bratchoku();
     int depth = 7;
 
-    try 
+    try
     {
         // conv hex
         ulong blackBitboard = ulong.Parse(data.BlackBitboard, NumberStyles.HexNumber);
         ulong whiteBitboard = ulong.Parse(data.WhiteBitboard, NumberStyles.HexNumber);
 
-        var result = bratchoku.Play(blackBitboard, whiteBitboard, depth);
+        var (move, time, nodes) = bratchoku.Play(blackBitboard, whiteBitboard, depth);
 
-        double timeTaken = result.time > 0 ? result.time : 0.01;
+        double timeTaken = time > 0 ? time : 0.01;
 
         return Results.Ok(new
         {
-            move = result.move,
-            depth = depth,
-            time = result.time,
-            nodes = result.nodes,
-            nps = (long)(result.nodes / timeTaken)
+            move,
+            depth,
+            time,
+            nodes,
+            nps = (long)(nodes / timeTaken)
         });
     }
     catch (FormatException)
