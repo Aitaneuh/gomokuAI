@@ -15,7 +15,7 @@ def play():
     
     blackBitboard = int(data['blackBitboard'], 16)
     whiteBitboard = int(data['whiteBitboard'], 16)
-    depth = 6
+    depth = 5
 
     result = bratchoku.play(blackBitboard, whiteBitboard, depth)
     time = result[1]
