@@ -2,6 +2,7 @@ import AIAnalysisTabHelper from "./ai_analysis_tab_helper.js";
 import GameEngine from "./game_engine.js";
 import PositionHelper from "./position_helper.js";
 import Renderer from "./renderer.js";
+import AiDelayHelper from "./ai_delay_helper.js";
 
 export default class AIController {
     async getMove(color, type) {
@@ -9,10 +10,10 @@ export default class AIController {
         const renderer = new Renderer()
         const aiAnalysisTabHelper = new AIAnalysisTabHelper()
         const gameEngine = new GameEngine()
+        const aiDelayHelper = new AiDelayHelper()
         const position = positionHelper.getUrlPosition();
 
-        // const timout = timoutHelper.getTimeout()
-        const timout = 200
+        const timout = aiDelayHelper.getDelayMs()
 
         let move = ""
         const [blackBitboard, whiteBitboard] = positionHelper.positionToBitboards(position);
