@@ -13,7 +13,7 @@ export default class GameEngine {
         this.gameStarted = false;
     }
 
-    generateEventListenenerFunctions() {
+    generateEventListenerFunctions() {
         this.startBtn.addEventListener("click", (event) => {
             this._startBtnClick()
         });

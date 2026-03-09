@@ -12,6 +12,6 @@ window.addEventListener("load", (event) => {
     let position = positionHelper.getUrlPosition()
     renderer.drawBoard(position)
     renderer.handleAnalysisTabs()
-    playerSelectHelper.addSelectEventListenener()
-    gameEngine.generateEventListenenerFunctions()
+    playerSelectHelper.addSelectEventListener()
+    gameEngine.generateEventListenerFunctions()
 });

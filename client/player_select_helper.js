@@ -6,7 +6,7 @@ export default class PlayerSelectHelper {
         this.whitePlayerSelect = document.getElementById("white-player-type")
     }
 
-    addSelectEventListenener() {
+    addSelectEventListener() {
         const renderer = new Renderer()
         this.blackPlayerSelect.addEventListener("click", (event) => {
             renderer.handleAnalysisTabs()
