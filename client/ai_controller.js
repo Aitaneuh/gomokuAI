@@ -17,7 +17,7 @@ export default class AIController {
 
         let move = ""
         const [blackBitboard, whiteBitboard] = positionHelper.positionToBitboards(position);
-        
+
         if (type === "random") {
             const rows = position.split("-");
             let emptySquares = [];
@@ -59,16 +59,19 @@ export default class AIController {
 
             const data = await response.json();
             move = data.move;
-            aiAnalysisTabHelper.setTabStats(
-                gameEngine.getCurrentPlayer(),
-                data.time,
-                data.nodes,
-                data.depth,
-                data.nps
-            );
+            if (gameEngine.startBtn.innerText == "Pause") {
+                aiAnalysisTabHelper.setTabStats(
+                    gameEngine.getCurrentPlayer(),
+                    data.time,
+                    data.nodes,
+                    data.depth,
+                    data.nps
+                );
+            }
         }
 
         await new Promise(resolve => setTimeout(resolve, timout));
         return move
+
     }
 }
