@@ -35,7 +35,13 @@ export default class AIController {
             if (emptySquares.length === 0) return null;
             const randomIndex = Math.floor(Math.random() * emptySquares.length);
             move = emptySquares[randomIndex];
-            aiAnalysisTabHelper.resetTabStats();
+            aiAnalysisTabHelper.setTabStats(
+                gameEngine.getCurrentPlayer(),
+                0,
+                0,
+                0,
+                0
+            );
 
         } else if (type === "python" || type === "csharp") {
             const url = type === "python"
