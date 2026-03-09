@@ -27,7 +27,6 @@ class boardHelper:
         MASK_NO_H = 0x7F7F7F7F7F7F7F7F
 
         # 1. HORIZONTAL (Shift 1)
-        # On vérifie si un pion a un voisin à sa gauche, 4 fois de suite
         m = bb & (bb << 1) & MASK_NO_A
         m &= (m << 1) & MASK_NO_A
         m &= (m << 1) & MASK_NO_A
@@ -35,23 +34,20 @@ class boardHelper:
         if m: return True
 
         # 2. VERTICAL (Shift 8)
-        # Pas besoin de masque : sortir par le haut (index > 63) annule le bit
         m = bb & (bb << 8)
         m &= (m << 8)
         m &= (m << 8)
         m &= (m << 8)
         if m: return True
 
-        # 3. DIAGONALE MONTANTE / (Shift 9 : de a1 vers b2)
-        # On doit bloquer la colonne A car on se déplace vers la droite (+1 col)
+        # 3. DIAGONALE MONTANTE / (Shift 9)
         m = bb & (bb << 9) & MASK_NO_A
         m &= (m << 9) & MASK_NO_A
         m &= (m << 9) & MASK_NO_A
         m &= (m << 9) & MASK_NO_A
         if m: return True
 
-        # 4. DIAGONALE DESCENDANTE \ (Shift 7 : de h1 vers g2)
-        # On doit bloquer la colonne H car on se déplace vers la gauche (-1 col)
+        # 4. DIAGONALE DESCENDANTE \ (Shift 7)
         m = bb & (bb << 7) & MASK_NO_H
         m &= (m << 7) & MASK_NO_H
         m &= (m << 7) & MASK_NO_H
