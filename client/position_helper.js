@@ -44,11 +44,14 @@ export default class PositionHelper {
             if (cell === "e") {
                 emptyCount++;
             } else {
-                if (emptyCount > 0) { newRowStr += emptyCount; emptyCount = 0; }
+                if (emptyCount > 0) {
+                    newRowStr += emptyCount;
+                    emptyCount = 0;
+                }
                 newRowStr += cell;
             }
         }
-        if (emptyCount > 0) newRowStr += emptyCount;
+        if (emptyCount > 0) newRowStr += emptyCount
         return newRowStr;
     }
 
@@ -107,10 +110,10 @@ export default class PositionHelper {
             positionRowsArray[rowIndex] = this.rowToSquareArray(positionRows[rowIndex])
         }
 
-        if (!positionRowsArray.flat().includes("e")){
+        if (!positionRowsArray.flat().includes("e")) {
             return "draw"
         }
-            
+
         let arr = positionRowsArray // better with a short name
 
         // diagonnaly (from top left to bottom right)
