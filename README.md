@@ -73,4 +73,4 @@ dotnet run
 ```
 
 3. **Launch the Web Interface**
-Open `index.html` in your browser or serve via Flask.
+Open `index.html` in your browser.
