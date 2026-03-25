@@ -14,9 +14,9 @@ class boardHelper:
 
         # On "étire" le plateau dans toutes les directions
         aura = (occupied << 1) | (occupied >> 1) | \
-            (occupied << 8) | (occupied >> 8) | \
-            (occupied << 7) | (occupied >> 7) | \
-            (occupied << 9) | (occupied >> 9)
+               (occupied << 8) | (occupied >> 8) | \
+               (occupied << 7) | (occupied >> 7) | \
+               (occupied << 9) | (occupied >> 9)
         
         moves_bitboard = aura & ~occupied & 0xFFFFFFFFFFFFFFFF
         
