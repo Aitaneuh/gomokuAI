@@ -57,7 +57,6 @@ class boardHelper:
         return False
     
     def get_sorted_moves(self, black_bb, white_bb, is_black_turn):
-        occupied = black_bb | white_bb
         moves = self.get_legal_moves(black_bb, white_bb)
         
         scored_moves = []
