@@ -27,6 +27,7 @@ class boardHelper:
         MASK_NO_H = 0x7F7F7F7F7F7F7F7F
 
         for shift in [1, 8, 9, 7]:
+            mask = 0xFFFFFFFFFFFFFFFF
             if shift == 1: mask = MASK_NO_A
             elif shift == 7: mask = MASK_NO_H
             elif shift == 9: mask = MASK_NO_A
