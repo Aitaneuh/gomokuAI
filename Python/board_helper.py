@@ -26,33 +26,16 @@ class boardHelper:
         MASK_NO_A = 0xFEFEFEFEFEFEFEFE
         MASK_NO_H = 0x7F7F7F7F7F7F7F7F
 
-        # 1. HORIZONTAL (Shift 1)
-        m = bb & (bb << 1) & MASK_NO_A
-        m &= (m << 1) & MASK_NO_A
-        m &= (m << 1) & MASK_NO_A
-        m &= (m << 1) & MASK_NO_A
-        if m: return True
+        for shift in [1, 8, 9, 7]:
+            if shift == 1: mask = MASK_NO_A
+            elif shift == 7: mask = MASK_NO_H
+            elif shift == 9: mask = MASK_NO_A
 
-        # 2. VERTICAL (Shift 8)
-        m = bb & (bb << 8)
-        m &= (m << 8)
-        m &= (m << 8)
-        m &= (m << 8)
-        if m: return True
-
-        # 3. DIAGONALE MONTANTE / (Shift 9)
-        m = bb & (bb << 9) & MASK_NO_A
-        m &= (m << 9) & MASK_NO_A
-        m &= (m << 9) & MASK_NO_A
-        m &= (m << 9) & MASK_NO_A
-        if m: return True
-
-        # 4. DIAGONALE DESCENDANTE \ (Shift 7)
-        m = bb & (bb << 7) & MASK_NO_H
-        m &= (m << 7) & MASK_NO_H
-        m &= (m << 7) & MASK_NO_H
-        m &= (m << 7) & MASK_NO_H
-        if m: return True
+            m = bb & (bb << shift) & mask
+            m &= (m << shift) & mask
+            m &= (m << shift) & mask
+            m &= (m << shift) & mask
+            if m: return True
 
         return False
     
