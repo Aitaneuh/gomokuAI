@@ -43,11 +43,16 @@ def test_get_legal_moves_empty_board(helper):
     assert helper.get_legal_moves(0, 0) == [28]
 
 def test_get_legal_moves_aura(helper):
-    moves = helper.get_legal_moves(1 << 27, 0)
-    assert 28 in moves # e4
-    assert 26 in moves # c4
-    assert 35 in moves # d5
-    assert 19 in moves # d3
+    moves = helper.get_legal_moves(1 << 27, 0) # d4
+    assert 18 in moves
+    assert 19 in moves
+    assert 20 in moves
+    assert 26 in moves
+    assert 28 in moves
+    assert 34 in moves
+    assert 35 in moves
+    assert 36 in moves
+
 
 def test_get_sorted_moves_priorities(helper):
     black_bb = sum(1 << i for i in range(4))
