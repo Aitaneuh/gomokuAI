@@ -1,4 +1,4 @@
-class boardHelper:
+class BoardHelper:
     def bitboard_to_indices(self, bb):
         indices = []
         while bb:
@@ -10,7 +10,7 @@ class boardHelper:
     def get_legal_moves(self, black_bb, white_bb):
         occupied = black_bb | white_bb
         if occupied == 0:
-            return [28] # Si le plateau est vide, on joue au centre (ex: d4)
+            return [28] # Si le plateau est vide, on joue au centre (ex: e4)
 
         # On "étire" le plateau dans toutes les directions
         aura = (occupied << 1) | (occupied >> 1) | \

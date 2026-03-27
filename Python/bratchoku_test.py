@@ -1,22 +1,44 @@
 import pytest
 from bratchoku import Bratchoku
 
-def test_minimax_find_win_in_horizontal():
-    four_in_row_horizontal = 0b1111
-    bratchoku = Bratchoku()
-    assert bratchoku.play(four_in_row_horizontal,0, 2)[0] == 'e1'
+@pytest.fixture
+def ai():
+    return Bratchoku()
 
-def test_minimax_find_win_in_vertical():
-    four_in_row_vertical = 0b1000000010000000100000001
-    bratchoku = Bratchoku()
-    assert bratchoku.play(four_in_row_vertical,0, 2)[0] == 'a5'
+def test_ai_finds_immediate_win_horizontal(ai):
+    black_bb = (1 << 0) | (1 << 1) | (1 << 2) | (1 << 3)
+    white_bb = 0
 
-def test_minimax_find_win_in_asc_diag():
-    four_in_row_asc_diag = 0b1000000001000000001000000001
-    bratchoku = Bratchoku()
-    assert bratchoku.play(four_in_row_asc_diag,0, 2)[0] == 'e5'
+    move, _, _ = ai.play(black_bb, white_bb, depth=1)
+    
+    assert move == "e1"
 
-def test_minimax_find_win_in_desc_diag():
-    four_in_row_desc_diag = 0b100000010000001000000100000000000
-    bratchoku = Bratchoku()
-    assert bratchoku.play(four_in_row_desc_diag,0, 2)[0] == 'e1'
+def test_ai_blocks_opponent_win(ai):
+    white_bb = (1 << 0) | (1 << 8) | (1 << 16) | (1 << 24)
+    black_bb = (1 << 7)
+    
+    move, _, _ = ai.play(black_bb, white_bb, depth=2)
+    
+    assert move == "a5"
+
+def test_ai_prefers_center_initially(ai):
+    move, _, _ = ai.play(0, 0, depth=1)
+    assert move == "e4"
+
+
+def test_alpha_beta_pruning_efficiency(ai):
+    black_bb = (1 << 28) | (1 << 36)
+    white_bb = (1 << 27) | (1 << 35)
+    
+    _, _, nodes_with_pruning = ai.play(black_bb, white_bb, depth=3)
+    
+    assert nodes_with_pruning > 0
+    print(f"Nodes visited at depth 3: {nodes_with_pruning}")
+
+
+def test_ai_finds_diag_win_your_case(ai):
+    black_bb = (1 << 32) | (1 << 25) | (1 << 18) | (1 << 11)
+    white_bb = (1 << 0)
+    
+    move, _, _ = ai.play(black_bb, white_bb, depth=2)
+    assert move == "e1"

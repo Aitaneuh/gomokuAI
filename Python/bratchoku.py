@@ -1,11 +1,11 @@
 import time
-from board_helper import boardHelper
+from board_helper import BoardHelper
 
 
 class Bratchoku:
     def __init__(self):
         self.simulated_moves = 0
-        self.board_helper = boardHelper()
+        self.board_helper = BoardHelper()
 
     def play(self, black_bitboard: int, white_bitboard: int, depth: int):
         self.simulated_moves = 0
