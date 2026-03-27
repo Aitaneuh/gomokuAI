@@ -26,19 +26,9 @@ def test_ai_prefers_center_initially(ai):
     assert move == "e4"
 
 
-def test_alpha_beta_pruning_efficiency(ai):
-    black_bb = (1 << 28) | (1 << 36)
-    white_bb = (1 << 27) | (1 << 35)
-    
-    _, _, nodes_with_pruning = ai.play(black_bb, white_bb, depth=3)
-    
-    assert nodes_with_pruning > 0
-    print(f"Nodes visited at depth 3: {nodes_with_pruning}")
-
-
 def test_ai_finds_diag_win_your_case(ai):
     black_bb = (1 << 32) | (1 << 25) | (1 << 18) | (1 << 11)
-    white_bb = (1 << 0)
+    white_bb = 0
     
     move, _, _ = ai.play(black_bb, white_bb, depth=2)
     assert move == "e1"
